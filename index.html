@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Smart Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator-wrapper">
+            <!-- Header -->
+            <div class="header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 13h8L8 9h8l-3 4h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h1>Trader Calculator</h1>
+                </div>
+                <div class="mode-toggle">
+                    <button id="basicMode" class="mode-btn active">Basic</button>
+                    <button id="tradingMode" class="mode-btn">Trading</button>
+                </div>
+            </div>
+
+            <!-- Display Section -->
+            <div class="display-section">
+                <div class="expression" id="expression"></div>
+                <div class="result" id="result">0</div>
+            </div>
+
+            <!-- Trading Tools (Hidden by default) -->
+            <div class="trading-tools" id="tradingTools" style="display: none;">
+                <div class="tool-tabs">
+                    <button class="tool-tab active" data-tool="position">Position Size</button>
+                    <button class="tool-tab" data-tool="profit">P&L</button>
+                    <button class="tool-tab" data-tool="risk">Risk/Reward</button>
+                </div>
+
+                <!-- Position Size Calculator -->
+                <div class="tool-content active" id="position-tool">
+                    <div class="input-group">
+                        <label>Account Size ($)</label>
+                        <input type="number" id="accountSize" placeholder="10000">
+                    </div>
+                    <div class="input-group">
+                        <label>Risk (%)</label>
+                        <input type="number" id="riskPercent" placeholder="2" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Stop Loss (pips/points)</label>
+                        <input type="number" id="stopLoss" placeholder="50">
+                    </div>
+                    <button class="calc-btn" onclick="calculatePositionSize()">Calculate</button>
+                    <div class="tool-result" id="positionResult"></div>
+                </div>
+
+                <!-- P&L Calculator -->
+                <div class="tool-content" id="profit-tool">
+                    <div class="input-group">
+                        <label>Entry Price</label>
+                        <input type="number" id="entryPrice" placeholder="100.00" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Exit Price</label>
+                        <input type="number" id="exitPrice" placeholder="105.00" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Position Size</label>
+                        <input type="number" id="positionSize" placeholder="100">
+                    </div>
+                    <button class="calc-btn" onclick="calculateProfitLoss()">Calculate P&L</button>
+                    <div class="tool-result" id="plResult"></div>
+                </div>
+
+                <!-- Risk/Reward Calculator -->
+                <div class="tool-content" id="risk-tool">
+                    <div class="input-group">
+                        <label>Entry Price</label>
+                        <input type="number" id="rrEntry" placeholder="100.00" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Stop Loss</label>
+                        <input type="number" id="rrStopLoss" placeholder="95.00" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Take Profit</label>
+                        <input type="number" id="rrTakeProfit" placeholder="110.00" step="0.01">
+                    </div>
+                    <button class="calc-btn" onclick="calculateRiskReward()">Calculate R:R</button>
+                    <div class="tool-result" id="rrResult"></div>
+                </div>
+            </div>
+
+            <!-- Memory Display -->
+            <div class="memory-display" id="memoryDisplay"></div>
+
+            <!-- Calculator Buttons -->
+            <div class="calculator-grid" id="basicCalculator">
+                <button class="btn function" onclick="clearAll()">AC</button>
+                <button class="btn function" onclick="deleteLast()">⌫</button>
+                <button class="btn function" onclick="addMemory()">M+</button>
+                <button class="btn operator" onclick="appendOperator('/')">÷</button>
+
+                <button class="btn number" onclick="appendNumber('7')">7</button>
+                <button class="btn number" onclick="appendNumber('8')">8</button>
+                <button class="btn number" onclick="appendNumber('9')">9</button>
+                <button class="btn operator" onclick="appendOperator('*')">×</button>
+
+                <button class="btn number" onclick="appendNumber('4')">4</button>
+                <button class="btn number" onclick="appendNumber('5')">5</button>
+                <button class="btn number" onclick="appendNumber('6')">6</button>
+                <button class="btn operator" onclick="appendOperator('-')">−</button>
+
+                <button class="btn number" onclick="appendNumber('1')">1</button>
+                <button class="btn number" onclick="appendNumber('2')">2</button>
+                <button class="btn number" onclick="appendNumber('3')">3</button>
+                <button class="btn operator" onclick="appendOperator('+')">+</button>
+
+                <button class="btn number" onclick="appendNumber('0')">0</button>
+                <button class="btn number" onclick="appendNumber('.')">.</button>
+                <button class="btn function" onclick="recallMemory()">MR</button>
+                <button class="btn equals" onclick="calculate()">=</button>
+
+                <button class="btn function" onclick="appendFunction('sqrt')">√</button>
+                <button class="btn function" onclick="appendFunction('square')">x²</button>
+                <button class="btn function" onclick="appendOperator('%')">%</button>
+                <button class="btn function" onclick="toggleSign()">+/-</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
